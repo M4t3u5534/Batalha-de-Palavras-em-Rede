@@ -8,6 +8,7 @@
 #include <arpa/inet.h>
 
 #include "protocolo.h"
+#include "jogo.h"
 
 int main(void)
 {
@@ -37,26 +38,9 @@ int main(void)
     }
     printf("Conectado ao servidor!\n");
 
-    const char *mensagem = "Ola servidor!";
+    //CONECTADO
 
-    send(sock, mensagem, strlen(mensagem), 0);
-
-    char buffer[BUFFER_SIZE];
-
-    ssize_t bytes_recebidos = recv(sock, buffer, BUFFER_SIZE - 1, 0);
-
-    if (bytes_recebidos < 0) {
-        perror("Erro no recv");
-    }
-    else if (bytes_recebidos == 0) {
-        printf("Servidor encerrou a conexao.\n");
-    }
-    else {
-        buffer[bytes_recebidos] = '\0';
-        printf("Servidor respondeu: %s\n", buffer);
-    }
-
-    close(sock);
+    
 
     return 0;
 }
