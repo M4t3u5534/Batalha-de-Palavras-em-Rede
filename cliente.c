@@ -40,7 +40,33 @@ int main(void)
 
     //CONECTADO
 
-    
+    char mensagem[BUFFER_SIZE];
 
+    while (1) {
+        int resultado = receber_mensagem(sock, mensagem, sizeof(mensagem));
+
+        if (resultado <= 0) {
+            printf("Conexao encerrada.\n");
+            break;
+        }
+
+        char *tipo = strtok(mensagem, "|\n");
+
+        if (tipo == NULL) continue;
+
+        if (strcmp(tipo, PROTO_NOME) == 0) {
+            char nome[NOME_SIZE];
+            char resposta[BUFFER_SIZE];
+
+            printf("Digite seu nome: ");
+            scanf("%31s", nome);
+
+            snprintf(resposta, sizeof(resposta), "%s%s%s\n", PROTO_NOME, PROTO_SEP, nome);
+
+            enviar_mensagem(sock, resposta);
+        }
+    }
+
+    close(sock);
     return 0;
 }
