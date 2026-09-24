@@ -9,6 +9,10 @@ typedef struct {
     int pontuacao;
 } Jogador;
 
+typedef struct {
+    Jogador jogador1;
+    Jogador jogador2;
+} Partida;
 
 /* Comunicação */
 int enviar_mensagem(int socket_fd, const char *mensagem);
@@ -25,6 +29,8 @@ int validar_palavra(const char *palavra, char letra);
 
 
 /* Partida */
-void executar_partida(Jogador *jogador1, Jogador *jogador2);
+int executar_partida(Jogador *jogador1, Jogador *jogador2);
+
+int receber_respostas(Jogador *jogador1, Jogador *jogador2, char *buffer1, char *buffer2, int *respondeu1, int *respondeu2);
 
 #endif
